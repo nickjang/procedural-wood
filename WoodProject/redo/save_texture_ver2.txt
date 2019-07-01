@@ -1,0 +1,96 @@
+#include "texture.h"
+#include "stb_image.h"
+#include <iostream>
+
+Texture::Texture(const std::string& fileName)
+{
+	int width, height, numComponents;
+    unsigned char* data = stbi_load((fileName).c_str(), &width, &height, &numComponents, 4);
+	int nwidth, nheight;
+	nwidth = (int)(width * 0.75);
+	nheight = (int)(height * 0.75);
+	int size = nwidth * nheight * 4 * 50;
+	unsigned char* data3d = new unsigned char[size];
+    if(data == NULL)
+		std::cerr << "Unable to load texture: " << fileName << std::endl;
+
+	m_puTextureIDs = new GLuint[50];
+	glGenTextures(1, m_puTextureIDs);
+
+	//faster way is to use subranges i.e. data[0:14][3:17] and add it to data3d 
+	//all at once for each slice instead of pixel by pixel
+	int imgIndx;
+	int xoffset;
+	int yoffset;
+	int pxcount = 0;
+	for (int nIndx = 0; nIndx < width * height * 50; nIndx++)
+	{
+		imgIndx = floor(nIndx / (width * height));
+		if (floor(pxcount / (nwidth * nheight * 4)) > imgIndx)
+			continue;
+		
+		if (imgIndx != floor(pxcount / (nwidth * nheight * 4))) {
+			std::cout << imgIndx << std::endl;
+			std::cout << floor(pxcount / (nwidth * nheight * 4)) << std::endl;
+			std::cerr << "Image indexing issue creating new texture." << std::endl;
+		}
+
+		//variation in xy movement of image by sin functin and add random (<=.05%) offset for fibers
+		xoffset = floor(abs(sin(imgIndx)) * ((double)width - (double)nwidth));
+		yoffset = floor(abs(sin(imgIndx)) * ((double)height - (double)nheight));
+		//xoffset = (double)width - (double)nwidth;
+		//yoffset = (double)height - (double)nheight;
+		if ((nIndx % (width * height)) % width < xoffset && (nIndx % (width * height)) % width < width - nwidth)
+			continue;
+		if (floor((nIndx % (width * height)) / width) < yoffset && floor((nIndx % (width * height)) / width) < (double)height - (double)nheight)
+			continue;
+		if (floor((pxcount % (nwidth * nheight * 4)) / (nwidth * 4)) + yoffset > floor((nIndx % (width * height)) / width))
+			continue;
+
+		/*
+		if (floor((pxcount % (nwidth * nheight * 4)) % (nwidth * 4) / 4.0) + xoffset > (nIndx % (width * height)) % width)
+			continue;
+
+		if (floor((pxcount % (nwidth * nheight * 4)) / (nwidth * 4)) + yoffset != floor((nIndx % (width * height)) / width)) {
+			std::cout << floor((pxcount % (nwidth * nheight * 4)) / (nwidth * 4)) << std::endl;
+			std::cout << floor((nIndx % (width * height)) / width) << std::endl;
+			std::cerr << "Row indexing issue creating new texture." << std::endl;
+		}
+		*/
+
+		data3d[pxcount] = data[nIndx % (width * height)];
+		data3d[pxcount + 1] = data[(nIndx % (width * height)) + 1];
+		data3d[pxcount + 2] = data[(nIndx % (width * height)) + 2];
+		data3d[pxcount + 3] = data[(nIndx % (width * height)) + 3];
+		pxcount += 4;
+	}
+
+	glBindTexture(GL_TEXTURE_3D, *m_puTextureIDs);
+
+	glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_WRAP_R, GL_REPEAT);
+
+	glTexParameterf(GL_TEXTURE_3D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_3D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexImage3D(GL_TEXTURE_3D, 0, GL_RGBA, nwidth, nheight, 50, 0, GL_RGBA, GL_UNSIGNED_BYTE, data3d);
+
+	stbi_image_free(data);
+	stbi_image_free(data3d);
+
+	//glEnable(GL_ALPHA_TEST);
+	//glAlphaFunc(GL_GREATER, 0.5f);
+	//glEnable(GL_BLEND);
+	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+}
+
+Texture::~Texture()
+{
+	glDeleteTextures(1, m_puTextureIDs);
+}
+
+void Texture::Bind()
+{
+	glEnable(GL_TEXTURE_3D);
+	glBindTexture(GL_TEXTURE_3D, *m_puTextureIDs);
+}

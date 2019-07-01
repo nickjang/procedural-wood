@@ -133,9 +133,9 @@ int main(int argc, char** argv)
 	};
 
 	Mesh mesh(vertices, sizeof(vertices) / sizeof(vertices[0]), indices, sizeof(indices) / sizeof(indices[0]));
-	//Mesh mesh("C:/Users/Nick/Documents/school work/capstone/redo/Bowl.obj");
-	Shader shader("C:/Users/Nick/Documents/school work/capstone/redo/basicShader");
-	Texture texture("C:/Users/Nick/Documents/school work/capstone/redo/wood_top2.jpg");
+	//Mesh mesh("C:/Users/Nick/source/repos/WoodProject/WoodProject/redo/Bowl.obj");
+	Shader shader("C:/Users/Nick/source/repos/WoodProject/WoodProject/redo/basicShader");
+	Texture texture("C:/Users/Nick/source/repos/WoodProject/WoodProject/redo/wood_top.jpg");
 	//CRawDataProcessor* m_pRawDataProc = new CRawDataProcessor();
 	//CTranformationMgr* m_pTransform = new CTranformationMgr();
 	//CFileDialog objOpenFile(TRUE);
@@ -168,6 +168,7 @@ int main(int argc, char** argv)
 		//transform.GetPos()->x = sinCounter;
 		transform.GetRot()->y = counter;
 		transform.GetRot()->z = -counter;
+		
 		//transform.GetScale()->x = absSinCounter;
 		//transform.GetScale()->y = absSinCounter;
 

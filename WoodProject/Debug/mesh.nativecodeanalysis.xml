@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DEFECTS>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\Nick\source\repos\WoodProject\WoodProject\</FILEPATH>
+      <FILENAME>mesh.h</FILENAME>
+      <LINE>51</LINE>
+      <COLUMN>1</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>Variable 'Mesh::m_numIndices' is uninitialized. Always initialize a member variable (type.6).</DESCRIPTION>
+    <FUNCTION>Mesh::{ctor}</FUNCTION>
+    <DECORATED>??0Mesh@@AAE@ABV0@@Z</DECORATED>
+    <FUNCLINE>51</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>Mesh::m_numIndices</targetSymbol>
+    </ADDITIONALINFO>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\Nick\source\repos\WoodProject\WoodProject\</FILEPATH>
+      <FILENAME>mesh.h</FILENAME>
+      <LINE>51</LINE>
+      <COLUMN>1</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>Variable 'Mesh::m_vertexArrayBuffers' is uninitialized. Always initialize a member variable (type.6).</DESCRIPTION>
+    <FUNCTION>Mesh::{ctor}</FUNCTION>
+    <DECORATED>??0Mesh@@AAE@ABV0@@Z</DECORATED>
+    <FUNCLINE>51</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>Mesh::m_vertexArrayBuffers</targetSymbol>
+    </ADDITIONALINFO>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\Nick\source\repos\WoodProject\WoodProject\</FILEPATH>
+      <FILENAME>mesh.h</FILENAME>
+      <LINE>51</LINE>
+      <COLUMN>1</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>Variable 'Mesh::m_vertexArrayObject' is uninitialized. Always initialize a member variable (type.6).</DESCRIPTION>
+    <FUNCTION>Mesh::{ctor}</FUNCTION>
+    <DECORATED>??0Mesh@@AAE@ABV0@@Z</DECORATED>
+    <FUNCLINE>51</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>Mesh::m_vertexArrayObject</targetSymbol>
+    </ADDITIONALINFO>
+    <PATH></PATH>
+  </DEFECT>
+</DEFECTS>

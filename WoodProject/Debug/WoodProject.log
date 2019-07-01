@@ -1,1 +1,7 @@
-﻿LINK : fatal error LNK1168: cannot open C:\Users\Nick\source\repos\WoodProject\Debug\WoodProject.exe for writing
+﻿  main.cpp
+  texture.cpp
+C:\Users\Nick\source\repos\WoodProject\WoodProject\texture.cpp(12,19): warning C4244:  '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\Nick\source\repos\WoodProject\WoodProject\texture.cpp(34,18): warning C4244:  '=': conversion from 'double' to 'int', possible loss of data
+  Generating Code...
+C:\Users\Nick\source\repos\WoodProject\WoodProject\texture.cpp(39,98): warning C4244:  '=': conversion from 'double' to 'int', possible loss of data
+  WoodProject.vcxproj -> C:\Users\Nick\source\repos\WoodProject\Debug\WoodProject.exe
