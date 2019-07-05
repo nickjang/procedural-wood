@@ -9,7 +9,7 @@ Texture::Texture(const std::string& fileName)
 	int nwidth, nheight, depth;
 	nheight = (int)(height * 0.75);
 	nwidth = (int)(width * 0.75);
-	depth = std::fmin(nwidth, nheight);
+	depth = 10;// std::fmin(nwidth, nheight);
 	//nheight = height;
 	//nwidth = width;
 	int size = nwidth * nheight * 4 * depth;
