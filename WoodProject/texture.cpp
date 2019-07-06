@@ -9,14 +9,13 @@ Texture::Texture(const std::string& fileName)
 	int nwidth, nheight, depth;
 	nheight = (int)(height * 0.75);
 	nwidth = (int)(width * 0.75);
-	depth = 10;// std::fmin(nwidth, nheight);
+	depth = std::fmin(nwidth, nheight);
 	//nheight = height;
 	//nwidth = width;
-	int size = nwidth * nheight * 4 * depth;
+	unsigned int size = nwidth * nheight * 4 * depth;
 	unsigned char* data3d = new unsigned char[size];
 	if (data == NULL)
 		std::cerr << "Unable to load texture: " << fileName << std::endl;
-
 	m_puTextureIDs = new GLuint[depth];
 	glGenTextures(1, m_puTextureIDs);
 

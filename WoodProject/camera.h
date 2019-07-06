@@ -47,11 +47,11 @@ public:
 	//	forward = glm::vec3(glm::normalize(rotation * glm::vec4(forward, 0.0)));
 	//	up = glm::vec3(glm::normalize(rotation * glm::vec4(up, 0.0)));
 	//}
-
+	glm::vec3 pos;
 protected:
 private:
 	glm::mat4 projection;
-	glm::vec3 pos;
+	
 	glm::vec3 forward;
 	glm::vec3 up;
 };

@@ -51,7 +51,7 @@ Display::Display(int width, int height, const std::string& title)
 	m_sbowl = TTF_RenderText_Solid(m_Sans, "Bowl", m_White);
 	m_sspoon = TTF_RenderText_Solid(m_Sans, "Spoon", m_White);
 	m_sbox = TTF_RenderText_Solid(m_Sans, "Box", m_White);
-	m_ssphere = TTF_RenderText_Solid(m_Sans, "Sphere", m_White);
+	m_ssphere = TTF_RenderText_Solid(m_Sans, "Create New Texture", m_White);
 	m_tbowl = SDL_CreateTextureFromSurface(m_renderer, m_sbowl);
 	m_tspoon = SDL_CreateTextureFromSurface(m_renderer, m_sspoon);
 	m_tbox = SDL_CreateTextureFromSurface(m_renderer, m_sbox);

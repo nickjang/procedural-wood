@@ -14,6 +14,12 @@ static const int DISPLAY_HEIGHT = 1800;
 
 int main(int argc, char** argv)
 {
+	if (AfxWinInit(GetModuleHandle(NULL), NULL, GetCommandLine(), 0) == FALSE)
+	{
+		std::cout << "Unable to initialize MFC" << std::endl;
+		//return 1; 
+	}
+
 	Display display(DISPLAY_WIDTH, DISPLAY_HEIGHT, "OpenGL");
 	
 	Vertex vertices[] =
@@ -48,7 +54,6 @@ int main(int argc, char** argv)
 		Vertex(glm::vec3(1, 1, 1), glm::vec3(1, 1, 1), glm::vec3(1, 0, 0)),
 		Vertex(glm::vec3(1, 1, -1), glm::vec3(1, 1, 0), glm::vec3(1, 0, 0)),
 	};
-
 	unsigned int indices[] = { 0, 1, 2,
 							  0, 2, 3,
 
@@ -68,12 +73,6 @@ int main(int argc, char** argv)
 							  23, 22, 20
 	};
 
-	//CFileDialog objOpenFile(TRUE);
-	/*if (IDOK != objOpenFile.DoModal())
-	{
-		exit(0);
-	}*/
-	/*objOpenFile.GetPathName()*/
 	Mesh* bowl = new Mesh("./redo/Bowl.obj");
 	Mesh* spoon = new Mesh("./redo/Spoon.obj");
 	Mesh* box = new Mesh(vertices, sizeof(vertices) / sizeof(vertices[0]), indices, sizeof(indices) / sizeof(indices[0]));
@@ -82,7 +81,7 @@ int main(int argc, char** argv)
 	meshes[0] = bowl; meshes[1] = spoon; meshes[2] = box; meshes[3] = sphere;
 	Mesh *mesh = box;
 	Shader shader("./redo/basicShader");
-	Texture texture("./redo/wood_top.jpg");
+	Texture* texture = new Texture("./redo/wood_top.jpg");
 
 	Transform transform;
 	Camera camera(glm::vec3(0.0f, 0.0f, -7.0f), 70.0f, (float)DISPLAY_WIDTH / (float)DISPLAY_HEIGHT, 0.1f, 100.0f);
@@ -91,13 +90,38 @@ int main(int argc, char** argv)
 	bool isRunning = true;
 	float counter = 0.0f;
 
+	
+
+	char szFilters[] = "JPEG Files (*.jpg)|*.jpg|PNG Files (*.png)|*.png|All Files (*.*)|*.*||";
+	CFileDialog* objOpenFile;
+
+	objOpenFile = new CFileDialog(TRUE, "jpg", "*.jpg",
+		OFN_FILEMUSTEXIST | OFN_HIDEREADONLY, szFilters, new CWnd());
+
 	while (isRunning)
 	{
 		while (SDL_PollEvent(&e))
 		{
 			int mnum = display.handleEvent(e);
 			if (mnum)
-				mesh = meshes[display.handleEvent(e) - 1];
+				if (mnum == 4) {
+					if (IDOK != objOpenFile->DoModal()) {
+						continue;
+					}
+					else {
+						texture->~Texture();
+						texture = new Texture(std::string(objOpenFile->GetPathName()));
+					}
+				}
+				else {
+					if (mnum == 1)
+						camera.pos = glm::vec3(0.0f, 0.0f, -5.0f);
+					if (mnum == 2)
+						camera.pos = glm::vec3(0.0f, 0.0f, -3.0f);
+					if (mnum == 3)
+						camera.pos = glm::vec3(0.0f, 0.0f, -7.0f);
+					mesh = meshes[display.handleEvent(e) - 1];
+				}
 			if (e.type == SDL_QUIT)
 				isRunning = false;
 		}
@@ -110,12 +134,11 @@ int main(int argc, char** argv)
 		//transform.GetPos()->x = sinCounter;
 		transform.GetRot()->y = counter;
 		transform.GetRot()->z = -counter;
-		
 		//transform.GetScale()->x = absSinCounter;
 		//transform.GetScale()->y = absSinCounter;
 
 		shader.Bind();
-		texture.Bind();
+		texture->Bind();
 		shader.Update(transform, camera);
 		mesh->Draw();
 

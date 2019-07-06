@@ -78,12 +78,12 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>.\include;C:\Program Files\Assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalLibraryDirectories>.\lib;C:\Program Files\Assimp\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glew32.lib;glew32s.lib;SDL2.lib;SDL2main.lib;SDL2test.lib;OpenGL32.lib;C:\Program Files\Assimp\lib\x86\assimp.lib;dxgi.lib;d3d11.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>.\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glew32.lib;glew32s.lib;SDL2.lib;SDL2main.lib;SDL2test.lib;OpenGL32.lib;dxgi.lib;d3d11.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -133,7 +133,6 @@
     <ClCompile Include="mesh.cpp" />
     <ClCompile Include="obj_loader.cpp" />
     <ClCompile Include="RawDataProcessor.cpp" />
-    <ClCompile Include="render.cpp" />
     <ClCompile Include="shader.cpp" />
     <ClCompile Include="stb_image.c" />
     <ClCompile Include="stdafx.cpp" />
@@ -149,7 +148,6 @@
     <ClInclude Include="mesh.h" />
     <ClInclude Include="obj_loader.h" />
     <ClInclude Include="RawDataProcessor.h" />
-    <ClInclude Include="render.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="shader.h" />
     <ClInclude Include="stb_image.h" />
